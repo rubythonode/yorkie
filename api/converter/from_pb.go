@@ -175,7 +175,7 @@ func fromTimeTicket(pbTicket *api.TimeTicket) *time.Ticket {
 	)
 }
 
-func fromElement(pbElement *api.JSONElement) json.Element {
+func fromElement(pbElement *api.JSONElementSimple) json.Element {
 	switch pbElement.Type {
 	case api.ValueType_JSON_OBJECT:
 		return json.NewObject(

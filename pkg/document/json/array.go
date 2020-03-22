@@ -75,12 +75,12 @@ func (a *Array) Marshal() string {
 	return a.elements.Marshal()
 }
 
-// Deepcopy copies itself deeply.
-func (a *Array) Deepcopy() Element {
+// DeepCopy copies itself deeply.
+func (a *Array) DeepCopy() Element {
 	elements := NewRGA()
 
 	for _, node := range a.elements.Nodes() {
-		elements.Add(node.elem.Deepcopy())
+		elements.Add(node.elem.DeepCopy())
 	}
 
 	array := NewArray(elements, a.createdAt)

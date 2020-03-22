@@ -141,65 +141,65 @@ func ToOperations(operations []operation.Operation) []*api.Operation {
 	return pbOperations
 }
 
-func toJSONElement(elem json.Element) *api.JSONElement {
+func toJSONElement(elem json.Element) *api.JSONElementSimple {
 	switch elem := elem.(type) {
 	case *json.Object:
-		return &api.JSONElement{
+		return &api.JSONElementSimple{
 			Type:      api.ValueType_JSON_OBJECT,
 			CreatedAt: toTimeTicket(elem.CreatedAt()),
 		}
 	case *json.Array:
-		return &api.JSONElement{
+		return &api.JSONElementSimple{
 			Type:      api.ValueType_JSON_ARRAY,
 			CreatedAt: toTimeTicket(elem.CreatedAt()),
 		}
 	case *json.Primitive:
 		switch elem.ValueType() {
 		case json.Boolean:
-			return &api.JSONElement{
+			return &api.JSONElementSimple{
 				Type:      api.ValueType_BOOLEAN,
 				CreatedAt: toTimeTicket(elem.CreatedAt()),
 				Value:     elem.Bytes(),
 			}
 		case json.Integer:
-			return &api.JSONElement{
+			return &api.JSONElementSimple{
 				Type:      api.ValueType_INTEGER,
 				CreatedAt: toTimeTicket(elem.CreatedAt()),
 				Value:     elem.Bytes(),
 			}
 		case json.Long:
-			return &api.JSONElement{
+			return &api.JSONElementSimple{
 				Type:      api.ValueType_LONG,
 				CreatedAt: toTimeTicket(elem.CreatedAt()),
 				Value:     elem.Bytes(),
 			}
 		case json.Double:
-			return &api.JSONElement{
+			return &api.JSONElementSimple{
 				Type:      api.ValueType_DOUBLE,
 				CreatedAt: toTimeTicket(elem.CreatedAt()),
 				Value:     elem.Bytes(),
 			}
 		case json.String:
-			return &api.JSONElement{
+			return &api.JSONElementSimple{
 				Type:      api.ValueType_STRING,
 				CreatedAt: toTimeTicket(elem.CreatedAt()),
 				Value:     elem.Bytes(),
 			}
 		case json.Bytes:
-			return &api.JSONElement{
+			return &api.JSONElementSimple{
 				Type:      api.ValueType_BYTES,
 				CreatedAt: toTimeTicket(elem.CreatedAt()),
 				Value:     elem.Bytes(),
 			}
 		case json.Date:
-			return &api.JSONElement{
+			return &api.JSONElementSimple{
 				Type:      api.ValueType_DATE,
 				CreatedAt: toTimeTicket(elem.CreatedAt()),
 				Value:     elem.Bytes(),
 			}
 		}
 	case *json.Text:
-		return &api.JSONElement{
+		return &api.JSONElementSimple{
 			Type:      api.ValueType_TEXT,
 			CreatedAt: toTimeTicket(elem.CreatedAt()),
 		}

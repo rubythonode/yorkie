@@ -18,6 +18,7 @@ package document
 
 import (
 	"fmt"
+	"github.com/yorkie-team/yorkie/api/converter"
 
 	"github.com/yorkie-team/yorkie/pkg/document/change"
 	"github.com/yorkie-team/yorkie/pkg/document/checkpoint"
@@ -66,6 +67,23 @@ func New(collection, document string) *Document {
 		state:      Detached,
 		root:       json.NewRoot(root),
 		checkpoint: checkpoint.Initial,
+		changeID:   change.InitialID,
+	}
+}
+
+// New creates a new instance of Document with the snapshot.
+func FromSnapshot(
+	collection string,
+	document string,
+	serverSeq uint64,
+	snapshot []byte,
+) *Document {
+	rootObj := converter.BytesToObject(snapshot)
+	return &Document{
+		key:        &key.Key{Collection: collection, Document: document},
+		state:      Detached,
+		root:       json.NewRoot(rootObj),
+		checkpoint: checkpoint.Initial.NextServerSeq(serverSeq),
 		changeID:   change.InitialID,
 	}
 }
@@ -189,8 +207,12 @@ func (d *Document) IsAttached() bool {
 
 func (d *Document) ensureClone() {
 	if d.clone == nil {
-		d.clone = d.root.Deepcopy()
+		d.clone = d.root.DeepCopy()
 	}
+}
+
+func (d *Document) RootObject() *json.Object {
+	return d.root.Object()
 }
 
 func messageFromMsgAndArgs(msgAndArgs ...interface{}) string {

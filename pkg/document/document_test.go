@@ -18,9 +18,8 @@ package document_test
 
 import (
 	"errors"
-	"testing"
-
 	"github.com/stretchr/testify/assert"
+	"testing"
 
 	"github.com/yorkie-team/yorkie/pkg/document"
 	"github.com/yorkie-team/yorkie/pkg/document/checkpoint"
@@ -199,4 +198,5 @@ func TestDocument(t *testing.T) {
 		assert.Nil(t, err)
 		assert.Equal(t, `{"k1":[1,2,3,4,5]}`, doc.Marshal())
 	})
+
 }

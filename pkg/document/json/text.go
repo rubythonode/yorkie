@@ -525,7 +525,8 @@ func (t *Text) Marshal() string {
 	return fmt.Sprintf("\"%s\"", t.rgaTreeSplit.marshal())
 }
 
-func (t *Text) Deepcopy() Element {
+// DeepCopy copies itself deeply.
+func (t *Text) DeepCopy() Element {
 	rgaTreeSplit := NewRGATreeSplit()
 
 	current := rgaTreeSplit.InitialHead()
